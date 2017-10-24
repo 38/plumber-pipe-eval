@@ -1,0 +1,12 @@
+package evaluation;
+
+type __package__ {};
+
+type Triangle : __package__ {
+	double x0;
+	double y0;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+};
