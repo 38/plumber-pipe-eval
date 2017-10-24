@@ -1,0 +1,2 @@
+#!/usr/bin/zsh
+(for ((i=0;i<32;i++)); do $@; done )  | awk '{sum[NR%5]+=$1}END{for(i in sum)print i"\t"sum[i]/32.0}'

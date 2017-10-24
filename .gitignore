@@ -1,0 +1,8 @@
+*.txt
+*.in
+*.out
+*.o
+*.so
+*/server
+*/client
+*.psm

@@ -1,0 +1,17 @@
+#!/usr/bin/env pscript
+import("service");
+insmod("pssm");
+insmod("mem_pipe");
+insmod("simulate input=data/test_" + argv[1] + ".in output=data/test_" + argv[1] + ".out label=INPUT");
+
+scheduler.worker.nthread = 1
+scheduler.worker.max_concurrency = 1;
+runtime.servlet.path = "bin"
+
+Service.start({
+	source := "copy source " + argv[1];
+	copy := "copy copy " + argv[1];
+	sink := "copy sink " + argv[1];
+	() -> "in" source "out" -> "in" copy "out" -> "in" sink "out" -> ();
+});
+
