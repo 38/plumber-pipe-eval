@@ -1,6 +1,22 @@
 #!/usr/bin/zsh
-if [ ! -z "${NUM}" ]
+if [ -z "${N}" ]
 then
-	NUM=5
+	N=32
 fi
-(for ((i=0;i<32;i++)); do $@; done )  | awk '{sum[NR%'${NUM}']+=$1}END{for(i in sum)print i"\t"sum[i]/32.0}'
+
+(for ((i=0;i<${N};i++)); do $@; echo ".__END_OF_TEST__"; done )  | awk '{
+	if(!case_length)
+	{
+		if($1 == ".__END_OF_TEST__")
+			case_length = NR - 1;
+		idx = NR - 1
+	}
+	else idx = (NR - 1) % case_length;
+	
+	if($1 != ".__END_OF_TEST__")
+		sum[idx]+=$1
+}
+END{
+	for(i in sum)
+		print i"\t"sum[i]/'${N}'
+}'
